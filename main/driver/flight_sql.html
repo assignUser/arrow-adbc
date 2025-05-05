@@ -15,8 +15,8 @@
 <meta name="description" content="Available for: C/C++, GLib/Ruby, Go, Java, Python, R The Flight SQL Driver provides access to any database implementing a Arrow Flight SQL compatible endpoint. Installation: C/C++ For conda-forge u..." />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="JDBC Adapter" href="jdbc.html" /><link rel="prev" title="DuckDB Support" href="duckdb.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Flight SQL Driver - ADBC 16 (dev) documentation</title>
+    <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>Flight SQL Driver - ADBC 18 (dev) documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -50,7 +50,7 @@
   }
 </style>
 <script>
-  const currentVersion = "16 (dev)";
+  const currentVersion = "18 (dev)";
   const versionsRoot = "../..";
 </script>
 <style>
@@ -105,7 +105,7 @@
     </script>
     
 <nav id="version-switcher">
-  <button type="button" onclick="document.getElementById('version-switcher').classList.toggle('open')">Version: 16 (dev)</button>
+  <button type="button" onclick="document.getElementById('version-switcher').classList.toggle('open')">Version: 18 (dev)</button>
   <div class="versions">
     <ul></ul>
   </div>
@@ -235,7 +235,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">ADBC 16 (dev) documentation</div></a>
+      <a href="../index.html"><div class="brand">ADBC 18 (dev) documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -263,7 +263,7 @@
     <img class="sidebar-logo only-dark" src="../_static/logo-dark.png" alt="Dark Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">ADBC 16 (dev) documentation</span>
+  <span class="sidebar-brand-text">ADBC 18 (dev) documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -274,6 +274,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions (FAQ)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Supported Environments</span></p>
 <ul>
@@ -307,6 +308,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../python/recipe/driver_manager.html">DBAPI/Driver Manager Recipes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../python/recipe/flight_sql.html">Flight SQL Recipes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../python/recipe/postgresql.html">PostgreSQL Recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python/recipe/sqlite.html">SQLite Recipes</a></li>
 </ul>
 </li>
 </ul>
@@ -387,7 +389,7 @@
 <h1>Flight SQL Driver<a class="headerlink" href="#flight-sql-driver" title="Link to this heading">¶</a></h1>
 <p><strong>Available for:</strong> C/C++, GLib/Ruby, Go, Java, Python, R</p>
 <p>The Flight SQL Driver provides access to any database implementing a
-<a class="reference external" href="https://arrow.apache.org/docs/format/FlightSql.html" title="(in Apache Arrow v18.1.0)"><span>Arrow Flight SQL</span></a> compatible endpoint.</p>
+<a class="reference external" href="https://arrow.apache.org/docs/format/FlightSql.html" title="(in Apache Arrow v20.0.0)"><span>Arrow Flight SQL</span></a> compatible endpoint.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <div class="sd-tab-set docutils">
@@ -496,118 +498,136 @@ Go</label><div class="sd-tab-content docutils">
 <span class="linenos"> 24</span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
 <span class="linenos"> 25</span><span class="w">	</span><span class="s">&quot;context&quot;</span>
 <span class="linenos"> 26</span><span class="w">	</span><span class="s">&quot;database/sql&quot;</span>
-<span class="linenos"> 27</span><span class="w">	</span><span class="s">&quot;fmt&quot;</span>
-<span class="linenos"> 28</span><span class="w">	</span><span class="s">&quot;log&quot;</span>
-<span class="linenos"> 29</span>
-<span class="linenos"> 30</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-adbc/go/adbc&quot;</span>
-<span class="linenos"> 31</span><span class="w">	</span><span class="nx">drv</span><span class="w"> </span><span class="s">&quot;github.com/apache/arrow-adbc/go/adbc/driver/flightsql&quot;</span>
-<span class="linenos"> 32</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/array&quot;</span>
-<span class="linenos"> 33</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/flight&quot;</span>
-<span class="linenos"> 34</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/flight/flightsql&quot;</span>
-<span class="linenos"> 35</span><span class="w">	</span><span class="nx">sqlite</span><span class="w"> </span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/flight/flightsql/example&quot;</span>
-<span class="linenos"> 36</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/memory&quot;</span>
-<span class="linenos"> 37</span><span class="w">	</span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;modernc.org/sqlite&quot;</span>
-<span class="linenos"> 38</span><span class="p">)</span>
-<span class="linenos"> 39</span>
-<span class="linenos"> 40</span><span class="kd">var</span><span class="w"> </span><span class="nx">headers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;foo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="p">}</span>
-<span class="linenos"> 41</span>
-<span class="linenos"> 42</span><span class="kd">func</span><span class="w"> </span><span class="nx">FlightSQLExample</span><span class="p">(</span><span class="nx">uri</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 43</span><span class="w">	</span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">()</span>
-<span class="linenos"> 44</span><span class="w">	</span><span class="nx">options</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-<span class="linenos"> 45</span><span class="w">		</span><span class="nx">adbc</span><span class="p">.</span><span class="nx">OptionKeyURI</span><span class="p">:</span><span class="w"> </span><span class="nx">uri</span><span class="p">,</span>
-<span class="linenos"> 46</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 47</span>
-<span class="linenos"> 48</span><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">headers</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 49</span><span class="w">		</span><span class="nx">options</span><span class="p">[</span><span class="nx">drv</span><span class="p">.</span><span class="nx">OptionRPCCallHeaderPrefix</span><span class="o">+</span><span class="nx">k</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">v</span>
-<span class="linenos"> 50</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 51</span>
-<span class="linenos"> 52</span><span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">alloc</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">Allocator</span>
-<span class="linenos"> 53</span><span class="w">	</span><span class="nx">drv</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">drv</span><span class="p">.</span><span class="nx">NewDriver</span><span class="p">(</span><span class="nx">alloc</span><span class="p">)</span>
-<span class="linenos"> 54</span><span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">drv</span><span class="p">.</span><span class="nx">NewDatabase</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
-<span class="linenos"> 55</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 56</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to open database: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-<span class="linenos"> 57</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 58</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-<span class="linenos"> 59</span>
-<span class="linenos"> 60</span><span class="w">	</span><span class="nx">cnxn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-<span class="linenos"> 61</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 62</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to open connection: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-<span class="linenos"> 63</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 64</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">cnxn</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-<span class="linenos"> 65</span>
-<span class="linenos"> 66</span><span class="w">	</span><span class="nx">stmt</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cnxn</span><span class="p">.</span><span class="nx">NewStatement</span><span class="p">()</span>
-<span class="linenos"> 67</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 68</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to create statement: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-<span class="linenos"> 69</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 70</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-<span class="linenos"> 71</span>
-<span class="linenos"> 72</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">SetSqlQuery</span><span class="p">(</span><span class="s">&quot;SELECT 1 AS theresult&quot;</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 73</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to set query: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="linenos"> 27</span><span class="w">	</span><span class="s">&quot;errors&quot;</span>
+<span class="linenos"> 28</span><span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="linenos"> 29</span><span class="w">	</span><span class="s">&quot;log&quot;</span>
+<span class="linenos"> 30</span>
+<span class="linenos"> 31</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-adbc/go/adbc&quot;</span>
+<span class="linenos"> 32</span><span class="w">	</span><span class="nx">drv</span><span class="w"> </span><span class="s">&quot;github.com/apache/arrow-adbc/go/adbc/driver/flightsql&quot;</span>
+<span class="linenos"> 33</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/array&quot;</span>
+<span class="linenos"> 34</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/flight&quot;</span>
+<span class="linenos"> 35</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/flight/flightsql&quot;</span>
+<span class="linenos"> 36</span><span class="w">	</span><span class="nx">sqlite</span><span class="w"> </span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/flight/flightsql/example&quot;</span>
+<span class="linenos"> 37</span><span class="w">	</span><span class="s">&quot;github.com/apache/arrow-go/v18/arrow/memory&quot;</span>
+<span class="linenos"> 38</span><span class="w">	</span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;modernc.org/sqlite&quot;</span>
+<span class="linenos"> 39</span><span class="p">)</span>
+<span class="linenos"> 40</span>
+<span class="linenos"> 41</span><span class="kd">var</span><span class="w"> </span><span class="nx">headers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;foo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bar&quot;</span><span class="p">}</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span><span class="kd">func</span><span class="w"> </span><span class="nx">FlightSQLExample</span><span class="p">(</span><span class="nx">uri</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 44</span><span class="w">	</span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">()</span>
+<span class="linenos"> 45</span><span class="w">	</span><span class="nx">options</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+<span class="linenos"> 46</span><span class="w">		</span><span class="nx">adbc</span><span class="p">.</span><span class="nx">OptionKeyURI</span><span class="p">:</span><span class="w"> </span><span class="nx">uri</span><span class="p">,</span>
+<span class="linenos"> 47</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 48</span>
+<span class="linenos"> 49</span><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">headers</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 50</span><span class="w">		</span><span class="nx">options</span><span class="p">[</span><span class="nx">drv</span><span class="p">.</span><span class="nx">OptionRPCCallHeaderPrefix</span><span class="o">+</span><span class="nx">k</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">v</span>
+<span class="linenos"> 51</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 52</span>
+<span class="linenos"> 53</span><span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">alloc</span><span class="w"> </span><span class="nx">memory</span><span class="p">.</span><span class="nx">Allocator</span>
+<span class="linenos"> 54</span><span class="w">	</span><span class="nx">drv</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">drv</span><span class="p">.</span><span class="nx">NewDriver</span><span class="p">(</span><span class="nx">alloc</span><span class="p">)</span>
+<span class="linenos"> 55</span><span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">drv</span><span class="p">.</span><span class="nx">NewDatabase</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+<span class="linenos"> 56</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 57</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to open database: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="linenos"> 58</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 59</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 60</span><span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">())</span>
+<span class="linenos"> 61</span><span class="w">	</span><span class="p">}()</span>
+<span class="linenos"> 62</span>
+<span class="linenos"> 63</span><span class="w">	</span><span class="nx">cnxn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="linenos"> 64</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 65</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to open connection: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="linenos"> 66</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 67</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 68</span><span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">cnxn</span><span class="p">.</span><span class="nx">Close</span><span class="p">())</span>
+<span class="linenos"> 69</span><span class="w">	</span><span class="p">}()</span>
+<span class="linenos"> 70</span>
+<span class="linenos"> 71</span><span class="w">	</span><span class="nx">stmt</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cnxn</span><span class="p">.</span><span class="nx">NewStatement</span><span class="p">()</span>
+<span class="linenos"> 72</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 73</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to create statement: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
 <span class="linenos"> 74</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 75</span>
-<span class="linenos"> 76</span><span class="w">	</span><span class="nx">reader</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">ExecuteQuery</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-<span class="linenos"> 77</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 78</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to execute query: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-<span class="linenos"> 79</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 80</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Release</span><span class="p">()</span>
-<span class="linenos"> 81</span>
-<span class="linenos"> 82</span><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 83</span><span class="w">		</span><span class="nx">arr</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Record</span><span class="p">().</span><span class="nx">Column</span><span class="p">(</span><span class="mi">0</span><span class="p">).(</span><span class="o">*</span><span class="nx">array</span><span class="p">.</span><span class="nx">Int64</span><span class="p">)</span>
-<span class="linenos"> 84</span><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 85</span><span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;result data was not int64&quot;</span><span class="p">)</span>
-<span class="linenos"> 86</span><span class="w">		</span><span class="p">}</span>
-<span class="linenos"> 87</span><span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">Len</span><span class="p">();</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 88</span><span class="w">			</span><span class="k">if</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 89</span><span class="w">				</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;theresult: NULL&quot;</span><span class="p">)</span>
-<span class="linenos"> 90</span><span class="w">			</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos"> 91</span><span class="w">				</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;theresult: %d\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">Value</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
-<span class="linenos"> 92</span><span class="w">			</span><span class="p">}</span>
+<span class="linenos"> 75</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 76</span><span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">Close</span><span class="p">())</span>
+<span class="linenos"> 77</span><span class="w">	</span><span class="p">}()</span>
+<span class="linenos"> 78</span>
+<span class="linenos"> 79</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">SetSqlQuery</span><span class="p">(</span><span class="s">&quot;SELECT 1 AS theresult&quot;</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 80</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to set query: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="linenos"> 81</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 82</span>
+<span class="linenos"> 83</span><span class="w">	</span><span class="nx">reader</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">ExecuteQuery</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="linenos"> 84</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 85</span><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;failed to execute query: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="linenos"> 86</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 87</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Release</span><span class="p">()</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 90</span><span class="w">		</span><span class="nx">arr</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Record</span><span class="p">().</span><span class="nx">Column</span><span class="p">(</span><span class="mi">0</span><span class="p">).(</span><span class="o">*</span><span class="nx">array</span><span class="p">.</span><span class="nx">Int64</span><span class="p">)</span>
+<span class="linenos"> 91</span><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 92</span><span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;result data was not int64&quot;</span><span class="p">)</span>
 <span class="linenos"> 93</span><span class="w">		</span><span class="p">}</span>
-<span class="linenos"> 94</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos"> 95</span>
-<span class="linenos"> 96</span><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
-<span class="linenos"> 97</span><span class="p">}</span>
-<span class="linenos"> 98</span>
-<span class="linenos"> 99</span><span class="kd">func</span><span class="w"> </span><span class="nx">Example</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">100</span><span class="w">	</span><span class="c1">// For this example we will spawn the Flight SQL server ourselves.</span>
-<span class="linenos">101</span>
-<span class="linenos">102</span><span class="w">	</span><span class="c1">// Create a new database that isn&#39;t tied to any other databases that</span>
-<span class="linenos">103</span><span class="w">	</span><span class="c1">// may be in process.</span>
-<span class="linenos">104</span><span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;sqlite&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file:example_in_memory?mode=memory&quot;</span><span class="p">)</span>
-<span class="linenos">105</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">106</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<span class="linenos">107</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos">108</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-<span class="linenos">109</span>
-<span class="linenos">110</span><span class="w">	</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">NewSQLiteFlightSQLServer</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
-<span class="linenos">111</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">112</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<span class="linenos">113</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos">114</span>
-<span class="linenos">115</span><span class="w">	</span><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flight</span><span class="p">.</span><span class="nx">NewServerWithMiddleware</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
-<span class="linenos">116</span><span class="w">	</span><span class="nx">server</span><span class="p">.</span><span class="nx">RegisterFlightService</span><span class="p">(</span><span class="nx">flightsql</span><span class="p">.</span><span class="nx">NewFlightServer</span><span class="p">(</span><span class="nx">srv</span><span class="p">))</span>
-<span class="linenos">117</span><span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Init</span><span class="p">(</span><span class="s">&quot;localhost:8080&quot;</span><span class="p">)</span>
-<span class="linenos">118</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">119</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<span class="linenos">120</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos"> 94</span><span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">Len</span><span class="p">();</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 95</span><span class="w">			</span><span class="k">if</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">IsNull</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 96</span><span class="w">				</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;theresult: NULL&quot;</span><span class="p">)</span>
+<span class="linenos"> 97</span><span class="w">			</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 98</span><span class="w">				</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;theresult: %d\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">arr</span><span class="p">.</span><span class="nx">Value</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span>
+<span class="linenos"> 99</span><span class="w">			</span><span class="p">}</span>
+<span class="linenos">100</span><span class="w">		</span><span class="p">}</span>
+<span class="linenos">101</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">102</span>
+<span class="linenos">103</span><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="linenos">104</span><span class="p">}</span>
+<span class="linenos">105</span>
+<span class="linenos">106</span><span class="kd">func</span><span class="w"> </span><span class="nx">Example</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">107</span><span class="w">	</span><span class="c1">// For this example we will spawn the Flight SQL server ourselves.</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span><span class="w">	</span><span class="c1">// Create a new database that isn&#39;t tied to any other databases that</span>
+<span class="linenos">110</span><span class="w">	</span><span class="c1">// may be in process.</span>
+<span class="linenos">111</span><span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;sqlite&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file:example_in_memory?mode=memory&quot;</span><span class="p">)</span>
+<span class="linenos">112</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">113</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="linenos">114</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">115</span><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">116</span><span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="linenos">117</span><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">118</span><span class="w">			</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="linenos">119</span><span class="w">		</span><span class="p">}</span>
+<span class="linenos">120</span><span class="w">	</span><span class="p">}()</span>
 <span class="linenos">121</span>
-<span class="linenos">122</span><span class="w">	</span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">123</span><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Serve</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">124</span><span class="w">			</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<span class="linenos">125</span><span class="w">		</span><span class="p">}</span>
-<span class="linenos">126</span><span class="w">	</span><span class="p">}()</span>
-<span class="linenos">127</span>
-<span class="linenos">128</span><span class="w">	</span><span class="nx">uri</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;grpc://%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Addr</span><span class="p">().</span><span class="nx">String</span><span class="p">())</span>
-<span class="linenos">129</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">FlightSQLExample</span><span class="p">(</span><span class="nx">uri</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">130</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Error: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-<span class="linenos">131</span><span class="w">	</span><span class="p">}</span>
-<span class="linenos">132</span>
-<span class="linenos">133</span><span class="w">	</span><span class="nx">server</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">()</span>
-<span class="linenos">134</span>
-<span class="linenos">135</span><span class="w">	</span><span class="c1">// Output:</span>
-<span class="linenos">136</span><span class="w">	</span><span class="c1">// theresult: 1</span>
-<span class="linenos">137</span><span class="p">}</span>
+<span class="linenos">122</span><span class="w">	</span><span class="nx">srv</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sqlite</span><span class="p">.</span><span class="nx">NewSQLiteFlightSQLServer</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+<span class="linenos">123</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">124</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="linenos">125</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">126</span>
+<span class="linenos">127</span><span class="w">	</span><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flight</span><span class="p">.</span><span class="nx">NewServerWithMiddleware</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+<span class="linenos">128</span><span class="w">	</span><span class="nx">server</span><span class="p">.</span><span class="nx">RegisterFlightService</span><span class="p">(</span><span class="nx">flightsql</span><span class="p">.</span><span class="nx">NewFlightServer</span><span class="p">(</span><span class="nx">srv</span><span class="p">))</span>
+<span class="linenos">129</span><span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Init</span><span class="p">(</span><span class="s">&quot;localhost:8080&quot;</span><span class="p">)</span>
+<span class="linenos">130</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">131</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="linenos">132</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">133</span>
+<span class="linenos">134</span><span class="w">	</span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">135</span><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Serve</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">136</span><span class="w">			</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="linenos">137</span><span class="w">		</span><span class="p">}</span>
+<span class="linenos">138</span><span class="w">	</span><span class="p">}()</span>
+<span class="linenos">139</span>
+<span class="linenos">140</span><span class="w">	</span><span class="nx">uri</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;grpc://%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Addr</span><span class="p">().</span><span class="nx">String</span><span class="p">())</span>
+<span class="linenos">141</span><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">FlightSQLExample</span><span class="p">(</span><span class="nx">uri</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">142</span><span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Error: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="linenos">143</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">144</span>
+<span class="linenos">145</span><span class="w">	</span><span class="nx">server</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">()</span>
+<span class="linenos">146</span>
+<span class="linenos">147</span><span class="w">	</span><span class="c1">// Output:</span>
+<span class="linenos">148</span><span class="w">	</span><span class="c1">// theresult: 1</span>
+<span class="linenos">149</span><span class="p">}</span>
 </pre></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">stdout</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>theresult: 1
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -636,6 +656,11 @@ client to server.  The server then responds with an
 <code class="docutils literal notranslate"><span class="pre">authorization</span></code> header on the first request.  The value of this
 header will then be sent back as the <code class="docutils literal notranslate"><span class="pre">authorization</span></code> header on all
 future requests.</p>
+</li>
+<li><p>OAuth 2.0 authentication flows.</p>
+<p>The client provides <a class="reference internal" href="#oauth-configurations"><span class="std std-ref">configurations</span></a> to allow client application to obtain access
+tokens from an authorization server. The obtained token is then used
+on the <code class="docutils literal notranslate"><span class="pre">authorization</span></code> header on all future requests.</p>
 </li>
 </ul>
 </section>
@@ -707,13 +732,55 @@ to <a class="reference external" href="https://arrow.apache.org/adbc/main/cpp/ap
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.rpc.call_header.&lt;HEADER</span> <span class="pre">NAME&gt;</span></code></dt><dd><p>Add the header <code class="docutils literal notranslate"><span class="pre">&lt;HEADER</span> <span class="pre">NAME&gt;</span></code> to outgoing requests with the given
 value.</p>
-<blockquote>
-<div><p>Python: <a class="reference internal" href="../python/api/adbc_driver_flightsql.html#adbc_driver_flightsql.ConnectionOptions.RPC_CALL_HEADER_PREFIX" title="adbc_driver_flightsql.ConnectionOptions.RPC_CALL_HEADER_PREFIX"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adbc_driver_flightsql.ConnectionOptions.RPC_CALL_HEADER_PREFIX</span></code></a></p>
-</div></blockquote>
+<p>Python: <a class="reference internal" href="../python/api/adbc_driver_flightsql.html#adbc_driver_flightsql.ConnectionOptions.RPC_CALL_HEADER_PREFIX" title="adbc_driver_flightsql.ConnectionOptions.RPC_CALL_HEADER_PREFIX"><code class="xref py py-attr docutils literal notranslate"><span class="pre">adbc_driver_flightsql.ConnectionOptions.RPC_CALL_HEADER_PREFIX</span></code></a></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Header names must be in all lowercase.</p>
 </div>
+</dd>
+</dl>
+</section>
+<section id="oauth-2-0-options">
+<h3>OAuth 2.0 Options<a class="headerlink" href="#oauth-2-0-options" title="Link to this heading">¶</a></h3>
+<p id="oauth-configurations">Supported configurations to obtain tokens using OAuth 2.0 authentication flows.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.flow</span></code></dt><dd><p>Specifies the OAuth 2.0 flow type to use. Possible values: <code class="docutils literal notranslate"><span class="pre">client_credentials</span></code>, <code class="docutils literal notranslate"><span class="pre">token_exchange</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.client_id</span></code></dt><dd><p>Unique identifier issued to the client application by the authorization server</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.client_secret</span></code></dt><dd><p>Secret associated to the client_id. Used to authenticate the client application to the authorization server</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.token_uri</span></code></dt><dd><p>The endpoint URL where the client application requests tokens from the authorization server</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.scope</span></code></dt><dd><p>Space-separated list of permissions that the client is requesting access to (e.g <code class="docutils literal notranslate"><span class="pre">&quot;read.all</span> <span class="pre">offline_access&quot;</span></code>)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.subject_token</span></code></dt><dd><p>The security token that the client application wants to exchange</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.subject_token_type</span></code></dt><dd><p>Identifier for the type of the subject token.
+Check list below for supported token types.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.actor_token</span></code></dt><dd><p>A security token that represents the identity of the acting party</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.actor_token_type</span></code></dt><dd><p>Identifier for the type of the actor token.
+Check list below for supported token types.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.aud</span></code></dt><dd><p>The intended audience for the requested security token</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.resource</span></code></dt><dd><p>The resource server where the client intends to use the requested security token</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.scope</span></code></dt><dd><p>Specific permissions requested for the new token</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">adbc.flight.sql.oauth.exchange.requested_token_type</span></code></dt><dd><p>The type of token the client wants to receive in exchange.
+Check list below for supported token types.</p>
+</dd>
+<dt>Supported token types:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:token-type:access_token</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:token-type:refresh_token</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:token-type:id_token</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:token-type:saml1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:token-type:saml2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urn:ietf:params:oauth:token-type:jwt</span></code></p></li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -874,7 +941,7 @@ transaction-related ADBC APIs will return
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022–2024 The Apache Software Foundation.  Apache Arrow, Arrow,
+                Copyright &#169; 2022–2025 The Apache Software Foundation.  Apache Arrow, Arrow,
 Apache, the Apache feather logo, and the Apache Arrow project logo are either
 registered trademarks or trademarks of The Apache Software Foundation in the
 United States and other countries.
@@ -911,6 +978,7 @@ United States and other countries.
 <li><a class="reference internal" href="#bulk-ingestion">Bulk Ingestion</a></li>
 <li><a class="reference internal" href="#client-options">Client Options</a></li>
 <li><a class="reference internal" href="#custom-call-headers">Custom Call Headers</a></li>
+<li><a class="reference internal" href="#oauth-2-0-options">OAuth 2.0 Options</a></li>
 <li><a class="reference internal" href="#distributed-result-sets">Distributed Result Sets</a></li>
 <li><a class="reference internal" href="#incremental-execution">Incremental Execution</a></li>
 <li><a class="reference internal" href="#metadata">Metadata</a></li>
@@ -931,7 +999,7 @@ United States and other countries.
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=9008d292"></script>
+</div><script src="../_static/documentation_options.js?v=73bf8646"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

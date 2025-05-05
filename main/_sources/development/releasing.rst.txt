@@ -171,10 +171,10 @@ Build source and binaries and submit them
 
     # Upload the Java artifacts
     #
-    # Note that you need to press the "Close" button manually by Web interface
-    # after you complete the script:
+    # Note that you need to press the "Close" button manually in the Web
+    # interface after you complete the script:
     #   https://repository.apache.org/#stagingRepositories
-    dev/release/04-java-upload.sh <arrow-dir> <rc-number>
+    dev/release/04-java-upload.sh <rc-number>
 
     # Sign and upload the deb/rpm packages and APT/Yum repositories
     #
@@ -374,8 +374,8 @@ Be sure to go through on the following checklist:
    You must be one of owners of the package.  If you aren't an owner yet, an
    existing owner can add you at https://nuget.org.
 
-   You will need to [create an API
-   key](https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package#create-an-api-key).
+   You will need to `create an API
+   key <https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package#create-an-api-key>`.
 
    An owner can upload:
 
@@ -393,7 +393,7 @@ Be sure to go through on the following checklist:
    You must be one of owners of the package.  If you aren't an owner yet, an
    existing owner can add you at https://crates.io.
 
-   You will need to [create an API token](https://crates.io/settings/tokens).
+   You will need to `create an API token <https://crates.io/settings/tokens>`.
 
    An owner can upload:
 

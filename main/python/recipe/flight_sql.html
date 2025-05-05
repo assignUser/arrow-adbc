@@ -15,8 +15,8 @@
 <meta name="description" content="Some of these recipes are written againt a demo Flight SQL service backed by SQLite. You can run it yourself as follows: Other recipes work using the OSS version of Dremio: If you have the ADBC rep..." />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="PostgreSQL Recipes" href="postgresql.html" /><link rel="prev" title="DBAPI/Driver Manager Recipes" href="driver_manager.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>Flight SQL Recipes - ADBC 16 (dev) documentation</title>
+    <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>Flight SQL Recipes - ADBC 18 (dev) documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -50,7 +50,7 @@
   }
 </style>
 <script>
-  const currentVersion = "16 (dev)";
+  const currentVersion = "18 (dev)";
   const versionsRoot = "../../..";
 </script>
 <style>
@@ -105,7 +105,7 @@
     </script>
     
 <nav id="version-switcher">
-  <button type="button" onclick="document.getElementById('version-switcher').classList.toggle('open')">Version: 16 (dev)</button>
+  <button type="button" onclick="document.getElementById('version-switcher').classList.toggle('open')">Version: 18 (dev)</button>
   <div class="versions">
     <ul></ul>
   </div>
@@ -235,7 +235,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">ADBC 16 (dev) documentation</div></a>
+      <a href="../../index.html"><div class="brand">ADBC 18 (dev) documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -263,7 +263,7 @@
     <img class="sidebar-logo only-dark" src="../../_static/logo-dark.png" alt="Dark Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">ADBC 16 (dev) documentation</span>
+  <span class="sidebar-brand-text">ADBC 18 (dev) documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -274,6 +274,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions (FAQ)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Supported Environments</span></p>
 <ul class="current">
@@ -307,6 +308,7 @@
 <li class="toctree-l3"><a class="reference internal" href="driver_manager.html">DBAPI/Driver Manager Recipes</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Flight SQL Recipes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="postgresql.html">PostgreSQL Recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sqlite.html">SQLite Recipes</a></li>
 </ul>
 </li>
 </ul>
@@ -424,33 +426,33 @@ can use our configuration to run both services:</p>
 </section>
 <section id="connect-to-a-flight-sql-service-with-username-and-password">
 <h2>Connect to a Flight SQL service with username and password<a class="headerlink" href="#connect-to-a-flight-sql-service-with-username-and-password" title="Link to this heading">¶</a></h2>
-<p>Recipe source: <a class="reference external" href="https://github.com/apache/arrow-adbc/blob/main/docs/source/python/recipe/flightsql_dremio_connect.py">flightsql_dremio_connect.py</a></p>
+<p id="index-0">Recipe source: <a class="reference external" href="https://github.com/apache/arrow-adbc/blob/main/docs/source/python/recipe/flightsql_dremio_connect.py">flightsql_dremio_connect.py</a></p>
 <p>Dremio requires a username and password.  To connect to a Flight SQL
 service with authentication, provide the options at connection time.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">23</span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="linenos">24</span>
-<span class="linenos">25</span><span class="kn">import</span><span class="w"> </span><span class="nn">adbc_driver_flightsql.dbapi</span>
-<span class="linenos">26</span><span class="kn">import</span><span class="w"> </span><span class="nn">adbc_driver_manager</span>
-<span class="linenos">27</span>
-<span class="linenos">28</span><span class="n">uri</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ADBC_DREMIO_FLIGHTSQL_URI&quot;</span><span class="p">]</span>
-<span class="linenos">29</span><span class="n">username</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ADBC_DREMIO_FLIGHTSQL_USER&quot;</span><span class="p">]</span>
-<span class="linenos">30</span><span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ADBC_DREMIO_FLIGHTSQL_PASS&quot;</span><span class="p">]</span>
-<span class="linenos">31</span><span class="n">conn</span> <span class="o">=</span> <span class="n">adbc_driver_flightsql</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-<span class="linenos">32</span>    <span class="n">uri</span><span class="p">,</span>
-<span class="linenos">33</span>    <span class="n">db_kwargs</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos">34</span>        <span class="n">adbc_driver_manager</span><span class="o">.</span><span class="n">DatabaseOptions</span><span class="o">.</span><span class="n">USERNAME</span><span class="o">.</span><span class="n">value</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
-<span class="linenos">35</span>        <span class="n">adbc_driver_manager</span><span class="o">.</span><span class="n">DatabaseOptions</span><span class="o">.</span><span class="n">PASSWORD</span><span class="o">.</span><span class="n">value</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
-<span class="linenos">36</span>    <span class="p">},</span>
-<span class="linenos">37</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">25</span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="kn">import</span><span class="w"> </span><span class="nn">adbc_driver_flightsql.dbapi</span>
+<span class="linenos">28</span><span class="kn">import</span><span class="w"> </span><span class="nn">adbc_driver_manager</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="n">uri</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ADBC_DREMIO_FLIGHTSQL_URI&quot;</span><span class="p">]</span>
+<span class="linenos">31</span><span class="n">username</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ADBC_DREMIO_FLIGHTSQL_USER&quot;</span><span class="p">]</span>
+<span class="linenos">32</span><span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ADBC_DREMIO_FLIGHTSQL_PASS&quot;</span><span class="p">]</span>
+<span class="linenos">33</span><span class="n">conn</span> <span class="o">=</span> <span class="n">adbc_driver_flightsql</span><span class="o">.</span><span class="n">dbapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+<span class="linenos">34</span>    <span class="n">uri</span><span class="p">,</span>
+<span class="linenos">35</span>    <span class="n">db_kwargs</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos">36</span>        <span class="n">adbc_driver_manager</span><span class="o">.</span><span class="n">DatabaseOptions</span><span class="o">.</span><span class="n">USERNAME</span><span class="o">.</span><span class="n">value</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+<span class="linenos">37</span>        <span class="n">adbc_driver_manager</span><span class="o">.</span><span class="n">DatabaseOptions</span><span class="o">.</span><span class="n">PASSWORD</span><span class="o">.</span><span class="n">value</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+<span class="linenos">38</span>    <span class="p">},</span>
+<span class="linenos">39</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can then execute a simple query.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">41</span><span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
-<span class="linenos">42</span>    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT 1&quot;</span><span class="p">)</span>
-<span class="linenos">43</span>
-<span class="linenos">44</span>    <span class="k">assert</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">43</span><span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+<span class="linenos">44</span>    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT 1&quot;</span><span class="p">)</span>
 <span class="linenos">45</span>
-<span class="linenos">46</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="linenos">46</span>    <span class="k">assert</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span><span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -590,7 +592,7 @@ limit.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022–2024 The Apache Software Foundation.  Apache Arrow, Arrow,
+                Copyright &#169; 2022–2025 The Apache Software Foundation.  Apache Arrow, Arrow,
 Apache, the Apache feather logo, and the Apache Arrow project logo are either
 registered trademarks or trademarks of The Apache Software Foundation in the
 United States and other countries.
@@ -635,7 +637,7 @@ United States and other countries.
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=9008d292"></script>
+</div><script src="../../_static/documentation_options.js?v=73bf8646"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

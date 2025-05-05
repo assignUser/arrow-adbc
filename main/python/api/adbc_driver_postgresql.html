@@ -15,8 +15,8 @@
 <meta name="description" content="Low-Level API: DBAPI 2.0 API: DBAPI 2.0-compatible facade for the ADBC libpq driver." />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="adbc_driver_sqlite" href="adbc_driver_sqlite.html" /><link rel="prev" title="adbc_driver_flightsql" href="adbc_driver_flightsql.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>adbc_driver_postgresql - ADBC 16 (dev) documentation</title>
+    <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>adbc_driver_postgresql - ADBC 18 (dev) documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -50,7 +50,7 @@
   }
 </style>
 <script>
-  const currentVersion = "16 (dev)";
+  const currentVersion = "18 (dev)";
   const versionsRoot = "../../..";
 </script>
 <style>
@@ -105,7 +105,7 @@
     </script>
     
 <nav id="version-switcher">
-  <button type="button" onclick="document.getElementById('version-switcher').classList.toggle('open')">Version: 16 (dev)</button>
+  <button type="button" onclick="document.getElementById('version-switcher').classList.toggle('open')">Version: 18 (dev)</button>
   <div class="versions">
     <ul></ul>
   </div>
@@ -235,7 +235,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">ADBC 16 (dev) documentation</div></a>
+      <a href="../../index.html"><div class="brand">ADBC 18 (dev) documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -263,7 +263,7 @@
     <img class="sidebar-logo only-dark" src="../../_static/logo-dark.png" alt="Dark Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">ADBC 16 (dev) documentation</span>
+  <span class="sidebar-brand-text">ADBC 18 (dev) documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -274,6 +274,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions (FAQ)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Supported Environments</span></p>
 <ul class="current">
@@ -307,6 +308,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../recipe/driver_manager.html">DBAPI/Driver Manager Recipes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../recipe/flight_sql.html">Flight SQL Recipes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../recipe/postgresql.html">PostgreSQL Recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../recipe/sqlite.html">SQLite Recipes</a></li>
 </ul>
 </li>
 </ul>
@@ -388,8 +390,21 @@
 <section id="module-adbc_driver_postgresql">
 <span id="low-level-api"></span><h2>Low-Level API<a class="headerlink" href="#module-adbc_driver_postgresql" title="Link to this heading">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="adbc_driver_postgresql.ConnectionOptions">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">adbc_driver_postgresql.</span></span><span class="sig-name descname"><span class="pre">ConnectionOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adbc_driver_postgresql.ConnectionOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Connection options specific to the PostgreSQL driver.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="adbc_driver_postgresql.ConnectionOptions.TRANSACTION_STATUS">
+<span class="sig-name descname"><span class="pre">TRANSACTION_STATUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'adbc.postgresql.transaction_status'</span></em><a class="headerlink" href="#adbc_driver_postgresql.ConnectionOptions.TRANSACTION_STATUS" title="Link to this definition">¶</a></dt>
+<dd><p>Get the transaction status.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="adbc_driver_postgresql.StatementOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">adbc_driver_postgresql.</span></span><span class="sig-name descname"><span class="pre">StatementOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adbc_driver_postgresql.StatementOptions" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">adbc_driver_postgresql.</span></span><span class="sig-name descname"><span class="pre">StatementOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#adbc_driver_postgresql.StatementOptions" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>Statement options specific to the PostgreSQL driver.</p>
 <dl class="py attribute">
@@ -400,11 +415,19 @@
 actual size may differ.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="adbc_driver_postgresql.StatementOptions.USE_COPY">
+<span class="sig-name descname"><span class="pre">USE_COPY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'adbc.postgresql.use_copy'</span></em><a class="headerlink" href="#adbc_driver_postgresql.StatementOptions.USE_COPY" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable the <code class="docutils literal notranslate"><span class="pre">COPY</span></code> optimization (default: enabled).</p>
+<p>This is necessary for some queries since PostgreSQL does not support
+<code class="docutils literal notranslate"><span class="pre">COPY</span></code> with those queries, e.g. queries using <code class="docutils literal notranslate"><span class="pre">SHOW</span></code>.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="adbc_driver_postgresql.connect">
-<span class="sig-prename descclassname"><span class="pre">adbc_driver_postgresql.</span></span><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="adbc_driver_manager.html#adbc_driver_manager.AdbcDatabase" title="adbc_driver_manager._lib.AdbcDatabase"><span class="pre">AdbcDatabase</span></a></span></span><a class="headerlink" href="#adbc_driver_postgresql.connect" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">adbc_driver_postgresql.</span></span><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="adbc_driver_manager.html#adbc_driver_manager.AdbcDatabase" title="adbc_driver_manager._lib.AdbcDatabase"><span class="pre">AdbcDatabase</span></a></span></span><a class="headerlink" href="#adbc_driver_postgresql.connect" title="Link to this definition">¶</a></dt>
 <dd><p>Create a low level ADBC connection to PostgreSQL.</p>
 </dd></dl>
 
@@ -464,7 +487,7 @@ objects.)</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022–2024 The Apache Software Foundation.  Apache Arrow, Arrow,
+                Copyright &#169; 2022–2025 The Apache Software Foundation.  Apache Arrow, Arrow,
 Apache, the Apache feather logo, and the Apache Arrow project logo are either
 registered trademarks or trademarks of The Apache Software Foundation in the
 United States and other countries.
@@ -495,8 +518,13 @@ United States and other countries.
             <ul>
 <li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">adbc_driver_postgresql</span></code></a><ul>
 <li><a class="reference internal" href="#module-adbc_driver_postgresql">Low-Level API</a><ul>
+<li><a class="reference internal" href="#adbc_driver_postgresql.ConnectionOptions"><code class="docutils literal notranslate"><span class="pre">ConnectionOptions</span></code></a><ul>
+<li><a class="reference internal" href="#adbc_driver_postgresql.ConnectionOptions.TRANSACTION_STATUS"><code class="docutils literal notranslate"><span class="pre">ConnectionOptions.TRANSACTION_STATUS</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#adbc_driver_postgresql.StatementOptions"><code class="docutils literal notranslate"><span class="pre">StatementOptions</span></code></a><ul>
 <li><a class="reference internal" href="#adbc_driver_postgresql.StatementOptions.BATCH_SIZE_HINT_BYTES"><code class="docutils literal notranslate"><span class="pre">StatementOptions.BATCH_SIZE_HINT_BYTES</span></code></a></li>
+<li><a class="reference internal" href="#adbc_driver_postgresql.StatementOptions.USE_COPY"><code class="docutils literal notranslate"><span class="pre">StatementOptions.USE_COPY</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#adbc_driver_postgresql.connect"><code class="docutils literal notranslate"><span class="pre">connect()</span></code></a></li>
@@ -517,7 +545,7 @@ United States and other countries.
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=9008d292"></script>
+</div><script src="../../_static/documentation_options.js?v=73bf8646"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
